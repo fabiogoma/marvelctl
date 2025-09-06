@@ -31,3 +31,6 @@ go.work.sum
 # .idea/
 # .vscode/
 .env
+
+# Ignore bruno local configuration
+bruno/
