@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -53,12 +54,30 @@ func SearchCharacterByName(name string, client *models.Client) (*models.Characte
 	return fetchCharacter("nameStartsWith", name, client)
 }
 
+func GetRandomCharactersOffset(client *models.Client) (*models.Character, error) {
+	firstPageOfCharacters, err := fetchCharacter("", "", client)
+	if err != nil {
+		return nil, fmt.Errorf("error fetching offset: %v", err)
+	}
+
+	offset := rand.Intn(firstPageOfCharacters.Data.Total - 1)
+
+	randomListOfCharacters, err := fetchCharacter("offset", strconv.Itoa(offset), client)
+	if err != nil {
+		return nil, fmt.Errorf("error fetching offset: %v", err)
+	}
+
+	return randomListOfCharacters, nil
+}
+
 func fetchCharacter(paramKey string, paramValue string, client *models.Client) (*models.Character, error) {
 	ts, hash := generateAuthParameters(client.PublicKey, client.PrivateKey)
 
 	endpoint := client.BaseUrl + "/characters"
 	params := url.Values{}
-	params.Set(paramKey, paramValue)
+	if paramKey != "" && paramValue != "" {
+		params.Set(paramKey, paramValue)
+	}
 	params.Set("ts", ts)
 	params.Set("apikey", client.PublicKey)
 	params.Set("hash", hash)
