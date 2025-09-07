@@ -34,3 +34,4 @@ go.work.sum
 
 # Ignore bruno local configuration
 bruno/
+marvelctl
