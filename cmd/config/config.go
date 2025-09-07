@@ -4,6 +4,8 @@ Copyright © 2025 Fabio Gonçalves Martins <fabiogoma@gmail.com>
 package config
 
 import (
+	"fmt"
+
 	"github.com/fabiogoma/marvelctl/cmd"
 	"github.com/spf13/cobra"
 )
@@ -20,20 +22,13 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		err := cmd.Help()
+		if err != nil {
+			fmt.Printf("Error printing help: %v\n", err)
+		}
 	},
 }
 
 func init() {
 	cmd.RegisterSubCommand(ConfigCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// configCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// configCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

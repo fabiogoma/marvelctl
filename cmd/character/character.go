@@ -4,6 +4,8 @@ Copyright © 2025 Fabio Gonçalves Martins <fabiogoma@gmail.com>
 package character
 
 import (
+	"fmt"
+
 	"github.com/fabiogoma/marvelctl/cmd"
 	"github.com/spf13/cobra"
 )
@@ -20,7 +22,10 @@ Use it to look up information about a specific character, discover their appeara
 in comics, series, and events, or simply browse your favorite characters from
 the Marvel universe.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		cmd.Help()
+		err := cmd.Help()
+		if err != nil {
+			fmt.Printf("Error printing help: %v\n", err)
+		}
 	},
 }
 
