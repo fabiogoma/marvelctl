@@ -16,7 +16,7 @@ var setCmd = &cobra.Command{
 	Use:                   "set <key> <value>",
 	Args:                  cobra.ExactArgs(2),
 	DisableFlagsInUseLine: true,
-	Short:                 "Set a configuration parameter (e.g., public_key or private_key",
+	Short:                 "Set a configuration parameter (e.g., public_key or private_key)",
 	Long: `The 'set' command allows you to update or add configuration parameters to your marvelctl config file.
 
 Use this command to securely store your Marvel API credentials, such as 'public_key' and 'private_key'.
